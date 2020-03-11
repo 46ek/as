@@ -1,0 +1,48 @@
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 1.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 2.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 3.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 4.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 5.
+
+http://Can't connect to 42.115.91.82:52225 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+
+A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 6.
+
+http://Can't connect to 42.115.91.82:52225 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+
+A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 7.
+
+http://Can't connect to 42.115.91.82:52225 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.)
+
+A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 8.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 9.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 10.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 11.
+
+http://Can't connect to 42.115.91.82:52225 (No connection could be made because the target machine actively refused it.)
+
+No connection could be made because the target machine actively refused it. at C:/Strawberry/perl/vendor/lib/LWP/Protocol/http.pm line 50, <target> line 12.
+
